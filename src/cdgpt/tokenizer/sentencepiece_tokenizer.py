@@ -9,7 +9,8 @@ import numpy as np
 import sentencepiece as sp
 import torch
 
-from config.utils import configurable
+# from cdgpt.config.utils import configurable
+from cdgpt.cofig. configurable
 from .base_tokenizer import AbstractTokenizer
 
 
