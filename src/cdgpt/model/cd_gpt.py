@@ -9,7 +9,7 @@ import torch.nn as nn
 from torch.utils.checkpoint import checkpoint
 
 from cdgpt.config import configurable
-from cdgpt.tokenizer.sentencepiece_tokenizer import SentencePieceTokenizer
+from cdgpt.tokenizer import SentencePieceTokenizer
 from .generation import GenerationOutput, sample
 from .layer import RMSNorm, precompute_freqs_cis, Block
 from .output_head import (
