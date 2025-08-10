@@ -10,7 +10,7 @@ import sentencepiece as sp
 import torch
 
 # from cdgpt.config.utils import configurable
-from cdgpt.cofig. configurable
+from cdgpt.config import configurable
 from .base_tokenizer import AbstractTokenizer
 
 
@@ -23,13 +23,10 @@ class SentencePieceTokenizer(AbstractTokenizer):
 
     @classmethod
     def from_config(cls, cfg):
-        return {
-            "model_path": cfg.tokenizer.path
-        }
+        return {"model_path": cfg.tokenizer.path}
 
     @configurable
-    def __init__(self,
-                 model_path: str) -> None:
+    def __init__(self, model_path: str) -> None:
         super().__init__(os.path.basename(model_path).split(".")[0])
         self.model_path = model_path
         self.spm = sp.SentencePieceProcessor(model_file=model_path)
@@ -46,7 +43,9 @@ class SentencePieceTokenizer(AbstractTokenizer):
         if self.pad_id < 0:
             self.pad_id = self.eos_id
 
-        self._vocab = {id: self.spm.id_to_piece(id) for id in range(self.spm.get_piece_size())}
+        self._vocab = {
+            id: self.spm.id_to_piece(id) for id in range(self.spm.get_piece_size())
+        }
 
     @property
     def vocab(self):
@@ -86,14 +85,14 @@ class SentencePieceTokenizer(AbstractTokenizer):
         return self.eos_id
 
     def encode(
-            self,
-            seq: str,
-            bos: bool = False,
-            eos: bool = False,
-            max_length: int = -1,
-            pad: bool = False,
-            device: Optional[torch.device] = None,
-            to_tensor=True
+        self,
+        seq: str,
+        bos: bool = False,
+        eos: bool = False,
+        max_length: int = -1,
+        pad: bool = False,
+        device: Optional[torch.device] = None,
+        to_tensor=True,
     ) -> torch.Tensor:
         tokens = self.spm.encode(seq)
         if bos:
@@ -114,14 +113,14 @@ class SentencePieceTokenizer(AbstractTokenizer):
         return tokens
 
     def encode_token(
-            self,
-            seq: str,
-            bos: bool = False,
-            eos: bool = False,
-            max_length: int = -1,
-            pad: bool = False,
-            device: Optional[torch.device] = None,
-            to_tensor=True
+        self,
+        seq: str,
+        bos: bool = False,
+        eos: bool = False,
+        max_length: int = -1,
+        pad: bool = False,
+        device: Optional[torch.device] = None,
+        to_tensor=True,
     ) -> torch.Tensor:
         tokens = []
         pieces = [*list(seq)]
